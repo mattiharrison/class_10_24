@@ -1,0 +1,37 @@
+---
+title: "FEC data"
+author: "Matti Harrison"
+date: "10/24/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, cache = TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(stringr)
+library(fs)
+
+download.file(url = "https://www.fec.gov/files/bulk-downloads/1990/indiv90.zip", destfile = "indiv90.zip")
+
+unzip("indiv90.zip")
+
+indiv <- read_delim("itcont.txt", delim = "|", col_names = FALSE, escape_double = FALSE)
+
+file_delete(c("indiv90.zip", "itcont.txt"))
+
+```
+
+* The number of donations is `r nrow(indiv)`.
+
+```{r setup, include=FALSE, message = FALSE, cache = TRUE}
+download.file(url = "https://www.fec.gov/files/bulk-downloads/1990/cm90.zip", destfile = "cm90.zip")
+
+unzip("cm90.zip")
+
+committee <- read_delim("cm.txt", delim = "|", col_names = FALSE)
+
+file_delete(c("cm90.zip", "cm.txt"))
+```
+
